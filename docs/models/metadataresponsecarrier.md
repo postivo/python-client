@@ -1,0 +1,10 @@
+# MetadataResponseCarrier
+
+
+## Fields
+
+| Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  | Example                                                                      |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `carrier_id`                                                                 | *Optional[int]*                                                              | :heavy_minus_sign:                                                           | Unique carrier identifier.                                                   | 1                                                                            |
+| `carrier_name`                                                               | *Optional[str]*                                                              | :heavy_minus_sign:                                                           | Carrier display name.                                                        | Poczta Polska S.A.                                                           |
+| `services`                                                                   | List[[models.MetadataResponseService](../models/metadataresponseservice.md)] | :heavy_minus_sign:                                                           | Services (dispatch types) available for this carrier.                        |                                                                              |

@@ -1,0 +1,15 @@
+# StatusEvent
+
+Single shipment status event.
+
+
+## Fields
+
+| Field                                                                | Type                                                                 | Required                                                             | Description                                                          | Example                                                              |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `unique_id`                                                          | *Optional[int]*                                                      | :heavy_minus_sign:                                                   | Unique status event ID.                                              | 778656                                                               |
+| `type`                                                               | *Optional[str]*                                                      | :heavy_minus_sign:                                                   | Event type: `OK` (regular) or `EX` (exception/irregular).            | OK                                                                   |
+| `code`                                                               | *Optional[str]*                                                      | :heavy_minus_sign:                                                   | Status event code.                                                   | ACCEPTED                                                             |
+| `name`                                                               | *Optional[str]*                                                      | :heavy_minus_sign:                                                   | Status event description.                                            | Przesyłka przyjęta do realizacji                                     |
+| `details`                                                            | *OptionalNullable[str]*                                              | :heavy_minus_sign:                                                   | Status event details (for EXTERNAL status codes).                    | Przyjęcie do Punktu Dystrybucyjnego                                  |
+| `date_`                                                              | [date](https://docs.python.org/3/library/datetime.html#date-objects) | :heavy_minus_sign:                                                   | Status event timestamp (UTC).                                        | 2024-06-01T12:00:00Z                                                 |

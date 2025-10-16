@@ -1,0 +1,9 @@
+# UpdateContactByExternalIDResponse
+
+
+## Fields
+
+| Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `headers`                                                                                              | Dict[str, List[*str*]]                                                                                 | :heavy_check_mark:                                                                                     | N/A                                                                                                    |
+| `result`                                                                                               | [models.UpdateContactByExternalIDResponseResult](../models/updatecontactbyexternalidresponseresult.md) | :heavy_check_mark:                                                                                     | N/A                                                                                                    |
