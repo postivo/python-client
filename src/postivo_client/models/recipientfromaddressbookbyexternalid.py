@@ -18,8 +18,8 @@ class RecipientFromAddressBookByExternalIDTypedDict(TypedDict):
 
     ext_id: str
     r"""External (custom) ID of the recipient stored in your Address Book."""
-    from_shared: NotRequired[bool]
-    r"""Set to true to fetch recipient data by external ID from a main account’s shared Address Book."""
+    inherited: NotRequired[bool]
+    r"""Set to true to fetch recipient data by external ID from inherited main account’s Address Book."""
     custom_id: NotRequired[Nullable[str]]
     r"""Custom shipment ID assigned by the user."""
     postscript: NotRequired[Nullable[str]]
@@ -32,8 +32,8 @@ class RecipientFromAddressBookByExternalID(BaseModel):
     ext_id: str
     r"""External (custom) ID of the recipient stored in your Address Book."""
 
-    from_shared: Optional[bool] = False
-    r"""Set to true to fetch recipient data by external ID from a main account’s shared Address Book."""
+    inherited: Optional[bool] = False
+    r"""Set to true to fetch recipient data by external ID from inherited main account’s Address Book."""
 
     custom_id: OptionalNullable[str] = None
     r"""Custom shipment ID assigned by the user."""
@@ -43,7 +43,7 @@ class RecipientFromAddressBookByExternalID(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["from_shared", "custom_id", "postscript"]
+        optional_fields = ["inherited", "custom_id", "postscript"]
         nullable_fields = ["custom_id", "postscript"]
         null_default_fields = ["custom_id"]
 

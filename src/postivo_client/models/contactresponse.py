@@ -9,7 +9,7 @@ from postivo_client.types import (
     UNSET_SENTINEL,
 )
 from pydantic import model_serializer
-from typing import List
+from typing import List, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -40,6 +40,8 @@ class ContactResponseTypedDict(TypedDict):
     r"""Custom (external) contact ID; must be unique per contact."""
     group_ids: NotRequired[Nullable[List[int]]]
     r"""IDs of groups the contact belongs to."""
+    inherited: NotRequired[bool]
+    r"""Indicates whether the contact data was inherited from a main account’s shared Address Book."""
 
 
 class ContactResponse(BaseModel):
@@ -81,6 +83,9 @@ class ContactResponse(BaseModel):
     group_ids: OptionalNullable[List[int]] = UNSET
     r"""IDs of groups the contact belongs to."""
 
+    inherited: Optional[bool] = None
+    r"""Indicates whether the contact data was inherited from a main account’s shared Address Book."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -91,6 +96,7 @@ class ContactResponse(BaseModel):
             "phone_number",
             "ext_id",
             "group_ids",
+            "inherited",
         ]
         nullable_fields = [
             "name",

@@ -1,6 +1,6 @@
 [project]
 name = "postivo-client"
-version = "0.0.5"
+version = "0.1.0"
 description = "POSTIVO.PL Hybrid Mail Services REST API Client SDK"
 authors = [{ name = "POSTIVO.PL" },]
 readme = "README.md"

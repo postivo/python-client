@@ -9,6 +9,7 @@ from postivo_client.types import (
     UNSET_SENTINEL,
 )
 from pydantic import model_serializer
+from typing import Optional
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -21,6 +22,8 @@ class GroupResponseTypedDict(TypedDict):
     r"""Unique system-assigned group ID."""
     description: NotRequired[Nullable[str]]
     r"""Optional group description."""
+    inherited: NotRequired[bool]
+    r"""Indicates whether the group data was inherited from a main account’s shared Address Book."""
 
 
 class GroupResponse(BaseModel):
@@ -35,9 +38,12 @@ class GroupResponse(BaseModel):
     description: OptionalNullable[str] = UNSET
     r"""Optional group description."""
 
+    inherited: Optional[bool] = None
+    r"""Indicates whether the group data was inherited from a main account’s shared Address Book."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["description"]
+        optional_fields = ["description", "inherited"]
         nullable_fields = ["description"]
         null_default_fields = []
 
