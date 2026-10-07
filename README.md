@@ -82,7 +82,7 @@ It's also possible to write a standalone Python script without needing to set up
 ```python
 #!/usr/bin/env -S uv run --script
 # /// script
-# requires-python = ">=3.9"
+# requires-python = ">=3.10"
 # dependencies = [
 #     "postivo-client",
 # ]
@@ -325,12 +325,12 @@ with Client(
 <details open>
 <summary>Available methods</summary>
 
-### [accounts](docs/sdks/accounts/README.md)
+### [Accounts](docs/sdks/accounts/README.md)
 
 * [get](docs/sdks/accounts/README.md#get) - Retrieve account details
 * [get_subaccount](docs/sdks/accounts/README.md#get_subaccount) - Get subaccount details
 
-#### [address_book.contacts](docs/sdks/contacts/README.md)
+### [AddressBook.Contacts](docs/sdks/contacts/README.md)
 
 * [list](docs/sdks/contacts/README.md#list) - List contacts
 * [add](docs/sdks/contacts/README.md#add) - Add a new contact
@@ -340,7 +340,7 @@ with Client(
 * [remove_from_group](docs/sdks/contacts/README.md#remove_from_group) - Remove a contact from a group
 * [add_to_group](docs/sdks/contacts/README.md#add_to_group) - Add a contact to a group
 
-#### [address_book.contacts.by_ext_id](docs/sdks/byextid/README.md)
+#### [AddressBook.Contacts.ByExtId](docs/sdks/byextid/README.md)
 
 * [get](docs/sdks/byextid/README.md#get) - Retrieve contact details by EXT_ID
 * [update](docs/sdks/byextid/README.md#update) - Update a contact by EXT_ID
@@ -348,7 +348,7 @@ with Client(
 * [remove_from_group](docs/sdks/byextid/README.md#remove_from_group) - Remove a contact from a group by EXT_ID
 * [add_to_group](docs/sdks/byextid/README.md#add_to_group) - Add a contact to a group by EXT_ID
 
-#### [address_book.groups](docs/sdks/groups/README.md)
+### [AddressBook.Groups](docs/sdks/groups/README.md)
 
 * [list](docs/sdks/groups/README.md#list) - List groups
 * [add](docs/sdks/groups/README.md#add) - Add a new group
@@ -356,23 +356,23 @@ with Client(
 * [update](docs/sdks/groups/README.md#update) - Update a group
 * [delete](docs/sdks/groups/README.md#delete) - Delete a group
 
-### [common](docs/sdks/common/README.md)
+### [Common](docs/sdks/common/README.md)
 
 * [ping](docs/sdks/common/README.md#ping) - Check API availability and version
 
-### [metadata](docs/sdks/metadata/README.md)
+### [Metadata](docs/sdks/metadata/README.md)
 
 * [list](docs/sdks/metadata/README.md#list) - List metadata
 * [get_predefined_configs](docs/sdks/metadata/README.md#get_predefined_configs) - List predefined configs
 
-### [senders](docs/sdks/senders/README.md)
+### [Senders](docs/sdks/senders/README.md)
 
 * [list](docs/sdks/senders/README.md#list) - List senders
 * [add](docs/sdks/senders/README.md#add) - Add a new sender
 * [delete](docs/sdks/senders/README.md#delete) - Delete a sender
 * [verify](docs/sdks/senders/README.md#verify) - Verify sender
 
-### [shipments](docs/sdks/shipments/README.md)
+### [Shipments](docs/sdks/shipments/README.md)
 
 * [status](docs/sdks/shipments/README.md#status) - Retrieve shipment details with status events
 * [cancel](docs/sdks/shipments/README.md#cancel) - Cancel shipments
@@ -513,7 +513,7 @@ from postivo_client import Client
 
 
 with Client(
-    server="sandbox",
+    server="prod",
     bearer="<YOUR API ACCESS TOKEN>",
 ) as client:
 
@@ -623,6 +623,20 @@ class CustomClient(AsyncHttpClient):
 
 s = Client(async_client=CustomClient(httpx.AsyncClient()))
 ```
+### httpx2 (Pydantic's httpx fork)
+
+[httpx2](https://httpx2.pydantic.dev/) is Pydantic's maintained fork of `httpx`. To run this SDK on httpx2, call `alias_httpx()` at your program's entry point, before importing the SDK, so every `import httpx` — including the ones inside the SDK — resolves to `httpx2`:
+```python
+import httpx2
+
+httpx2.alias_httpx()
+
+from postivo_client import Client
+
+s = Client()
+```
+
+An SDK can also be generated against httpx2 directly, so it depends on the fork instead of `httpx`, by setting `python.httpClientLibrary: httpx2` in `gen.yaml`.
 <!-- End Custom HTTP Client [http-client] -->
 
 <!-- Start Resource Management [resource-management] -->

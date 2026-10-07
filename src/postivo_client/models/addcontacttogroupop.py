@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 from .errorresponse import ErrorResponse, ErrorResponseTypedDict
-from postivo_client.types import BaseModel
+from postivo_client.types import BaseModel, UNSET_SENTINEL
 from postivo_client.utils import FieldMetadata, PathParamMetadata
-from typing import Dict, List
-from typing_extensions import Annotated, TypedDict
+from pydantic import model_serializer
+from typing import Dict, List, Optional
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class AddContactToGroupRequestTypedDict(TypedDict):
@@ -29,10 +30,26 @@ class AddContactToGroupRequest(BaseModel):
 
 class AddContactToGroupResponseTypedDict(TypedDict):
     headers: Dict[str, List[str]]
-    result: ErrorResponseTypedDict
+    result: NotRequired[ErrorResponseTypedDict]
 
 
 class AddContactToGroupResponse(BaseModel):
     headers: Dict[str, List[str]]
 
-    result: ErrorResponse
+    result: Optional[ErrorResponse] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["Result"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

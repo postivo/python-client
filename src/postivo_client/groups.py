@@ -36,8 +36,8 @@ class Groups(BaseSDK):
         *,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
         accept_header_override: Optional[ListAcceptEnum] = None,
+        timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.ListGroupsResponse:
         r"""List groups
@@ -74,6 +74,7 @@ class Groups(BaseSDK):
             else "application/json;q=1, application/problem+json;q=0",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -98,9 +99,24 @@ class Groups(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Address Book", "redocly.groups"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n\n\n$response = $sdk->addressBook->groups->list(\n\n);\n\nif ($response->groupResponses !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.addressBook.groups.list();\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -125,8 +141,8 @@ class Groups(BaseSDK):
         *,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
         accept_header_override: Optional[ListAcceptEnum] = None,
+        timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.ListGroupsResponse:
         r"""List groups
@@ -163,6 +179,7 @@ class Groups(BaseSDK):
             else "application/json;q=1, application/problem+json;q=0",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -187,9 +204,24 @@ class Groups(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Address Book", "redocly.groups"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n\n\n$response = $sdk->addressBook->groups->list(\n\n);\n\nif ($response->groupResponses !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.addressBook.groups.list();\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -216,8 +248,8 @@ class Groups(BaseSDK):
         description: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
         accept_header_override: Optional[AddAcceptEnum] = None,
+        timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.AddGroupResponse:
         r"""Add a new group
@@ -265,6 +297,7 @@ class Groups(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.Group
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -289,9 +322,24 @@ class Groups(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Address Book", "redocly.groups"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\nuse Postivo\\Models\\Components;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n$request = new Components\\Group(\n    name: 'my-group',\n    description: 'This is a group for school contacts',\n);\n\n$response = $sdk->addressBook->groups->add(\n    request: $request\n);\n\nif ($response->groupResponse !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.addressBook.groups.add({\n    name: "my-group",\n    description: "This is a group for school contacts",\n  });\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -324,8 +372,8 @@ class Groups(BaseSDK):
         description: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
         accept_header_override: Optional[AddAcceptEnum] = None,
+        timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.AddGroupResponse:
         r"""Add a new group
@@ -373,6 +421,7 @@ class Groups(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.Group
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -397,9 +446,24 @@ class Groups(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Address Book", "redocly.groups"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\nuse Postivo\\Models\\Components;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n$request = new Components\\Group(\n    name: 'my-group',\n    description: 'This is a group for school contacts',\n);\n\n$response = $sdk->addressBook->groups->add(\n    request: $request\n);\n\nif ($response->groupResponse !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.addressBook.groups.add({\n    name: "my-group",\n    description: "This is a group for school contacts",\n  });\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -431,8 +495,8 @@ class Groups(BaseSDK):
         id: int,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
         accept_header_override: Optional[GetAcceptEnum] = None,
+        timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.GetGroupByIDResponse:
         r"""Retrieve group details
@@ -475,6 +539,7 @@ class Groups(BaseSDK):
             else "application/json;q=1, application/problem+json;q=0",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -499,9 +564,24 @@ class Groups(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Address Book", "redocly.groups"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n\n\n$response = $sdk->addressBook->groups->get(\n    id: 194\n);\n\nif ($response->groupResponse !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.addressBook.groups.get({\n    id: 194,\n  });\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -527,8 +607,8 @@ class Groups(BaseSDK):
         id: int,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
         accept_header_override: Optional[GetAcceptEnum] = None,
+        timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.GetGroupByIDResponse:
         r"""Retrieve group details
@@ -571,6 +651,7 @@ class Groups(BaseSDK):
             else "application/json;q=1, application/problem+json;q=0",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -595,9 +676,24 @@ class Groups(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Address Book", "redocly.groups"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n\n\n$response = $sdk->addressBook->groups->get(\n    id: 194\n);\n\nif ($response->groupResponse !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.addressBook.groups.get({\n    id: 194,\n  });\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -625,8 +721,8 @@ class Groups(BaseSDK):
         description: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
         accept_header_override: Optional[UpdateAcceptEnum] = None,
+        timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.UpdateGroupResponse:
         r"""Update a group
@@ -678,6 +774,7 @@ class Groups(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request.group, False, False, "json", models.Group
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -702,9 +799,24 @@ class Groups(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Address Book", "redocly.groups"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\nuse Postivo\\Models\\Components;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n$group = new Components\\Group(\n    name: 'my-group',\n    description: 'This is a group for school contacts',\n);\n\n$response = $sdk->addressBook->groups->update(\n    id: 14,\n    group: $group\n\n);\n\nif ($response->groupResponse !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.addressBook.groups.update({\n    id: 14,\n    group: {\n      name: "my-group",\n      description: "This is a group for school contacts",\n    },\n  });\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -738,8 +850,8 @@ class Groups(BaseSDK):
         description: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
         accept_header_override: Optional[UpdateAcceptEnum] = None,
+        timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.UpdateGroupResponse:
         r"""Update a group
@@ -791,6 +903,7 @@ class Groups(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request.group, False, False, "json", models.Group
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -815,9 +928,24 @@ class Groups(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Address Book", "redocly.groups"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\nuse Postivo\\Models\\Components;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n$group = new Components\\Group(\n    name: 'my-group',\n    description: 'This is a group for school contacts',\n);\n\n$response = $sdk->addressBook->groups->update(\n    id: 14,\n    group: $group\n\n);\n\nif ($response->groupResponse !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.addressBook.groups.update({\n    id: 14,\n    group: {\n      name: "my-group",\n      description: "This is a group for school contacts",\n    },\n  });\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -852,7 +980,7 @@ class Groups(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.DeleteGroupResponse]:
+    ) -> models.DeleteGroupResponse:
         r"""Delete a group
 
         Remove a group from your account’s Address Book by `ID`. Pass the group’s `id` to remove it. The group is deleted immediately from the Address Book.
@@ -894,6 +1022,7 @@ class Groups(BaseSDK):
             accept_header_value="application/problem+json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -918,16 +1047,31 @@ class Groups(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Address Book", "redocly.groups"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\nuse Postivo\\Models\\Operations;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n\n\n$response = $sdk->addressBook->groups->delete(\n    id: 876,\n    contacts: Operations\\ContactHandling::Detach\n\n);\n\nif ($response->errorResponse !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.addressBook.groups.delete({\n    id: 876,\n  });\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
         response_data: Any = None
         if utils.match_response(http_res, "204", "*"):
             return models.DeleteGroupResponse(
-                result="", headers=utils.get_response_headers(http_res.headers)
+                result=None, headers=utils.get_response_headers(http_res.headers)
             )
         if utils.match_response(
             http_res, ["400", "401", "403", "404", "4XX"], "application/problem+json"
@@ -954,7 +1098,7 @@ class Groups(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.DeleteGroupResponse]:
+    ) -> models.DeleteGroupResponse:
         r"""Delete a group
 
         Remove a group from your account’s Address Book by `ID`. Pass the group’s `id` to remove it. The group is deleted immediately from the Address Book.
@@ -996,6 +1140,7 @@ class Groups(BaseSDK):
             accept_header_value="application/problem+json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1020,16 +1165,31 @@ class Groups(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Address Book", "redocly.groups"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\nuse Postivo\\Models\\Operations;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n\n\n$response = $sdk->addressBook->groups->delete(\n    id: 876,\n    contacts: Operations\\ContactHandling::Detach\n\n);\n\nif ($response->errorResponse !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.addressBook.groups.delete({\n    id: 876,\n  });\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
         response_data: Any = None
         if utils.match_response(http_res, "204", "*"):
             return models.DeleteGroupResponse(
-                result="", headers=utils.get_response_headers(http_res.headers)
+                result=None, headers=utils.get_response_headers(http_res.headers)
             )
         if utils.match_response(
             http_res, ["400", "401", "403", "404", "4XX"], "application/problem+json"

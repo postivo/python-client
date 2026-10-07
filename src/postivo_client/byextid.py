@@ -7,7 +7,7 @@ from postivo_client._hooks import HookContext
 from postivo_client.types import Nullable, OptionalNullable, UNSET
 from postivo_client.utils import get_security_from_env
 from postivo_client.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, List, Mapping, Optional
+from typing import Any, Iterable, List, Mapping, Optional
 
 
 class GetAcceptEnum(str, Enum):
@@ -27,8 +27,8 @@ class ByExtID(BaseSDK):
         ext_id: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
         accept_header_override: Optional[GetAcceptEnum] = None,
+        timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.GetContactByExternalIDResponse:
         r"""Retrieve contact details by EXT_ID
@@ -71,6 +71,7 @@ class ByExtID(BaseSDK):
             else "application/json;q=1, application/problem+json;q=0",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -95,9 +96,24 @@ class ByExtID(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Address Book", "redocly.contactsExtId"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n\n\n$response = $sdk->addressBook->contacts->byExtId->get(\n    extId: 'my-ext-id-44'\n);\n\nif ($response->contactResponse !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.addressBook.contacts.byExtId.get({\n    extId: "my-ext-id-44",\n  });\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -123,8 +139,8 @@ class ByExtID(BaseSDK):
         ext_id: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
         accept_header_override: Optional[GetAcceptEnum] = None,
+        timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.GetContactByExternalIDResponse:
         r"""Retrieve contact details by EXT_ID
@@ -167,6 +183,7 @@ class ByExtID(BaseSDK):
             else "application/json;q=1, application/problem+json;q=0",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -191,9 +208,24 @@ class ByExtID(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Address Book", "redocly.contactsExtId"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n\n\n$response = $sdk->addressBook->contacts->byExtId->get(\n    extId: 'my-ext-id-44'\n);\n\nif ($response->contactResponse !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.addressBook.contacts.byExtId.get({\n    extId: "my-ext-id-44",\n  });\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -227,11 +259,11 @@ class ByExtID(BaseSDK):
         country: OptionalNullable[str] = "PL",
         phone_number: OptionalNullable[str] = UNSET,
         ext_id: OptionalNullable[str] = UNSET,
-        group_ids: OptionalNullable[List[int]] = UNSET,
+        group_ids: OptionalNullable[Iterable[int]] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
         accept_header_override: Optional[UpdateAcceptEnum] = None,
+        timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.UpdateContactByExternalIDResponse:
         r"""Update a contact by EXT_ID
@@ -279,7 +311,7 @@ class ByExtID(BaseSDK):
                 country=country,
                 phone_number=phone_number,
                 ext_id=ext_id,
-                group_ids=group_ids,
+                group_ids=utils.unmarshal(group_ids, OptionalNullable[List[int]]),
             ),
         )
 
@@ -301,6 +333,7 @@ class ByExtID(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request.contact, False, False, "json", models.Contact
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -325,9 +358,24 @@ class ByExtID(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Address Book", "redocly.contactsExtId"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\nuse Postivo\\Models\\Components;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n$contact = new Components\\Contact(\n    name: 'Jan Nowak',\n    name2: 'Firma Testowa Sp. z o.o.',\n    address: 'ul. Aleje Jerozolimskie',\n    homeNumber: '31',\n    flatNumber: '2',\n    postCode: '00-999',\n    city: 'Warszawa',\n    phoneNumber: '+48999999999',\n    extId: 'my-contact-1',\n    groupIds: [\n        13,\n        534,\n    ],\n);\n\n$response = $sdk->addressBook->contacts->byExtId->update(\n    extId: 'my-id-2',\n    contact: $contact\n\n);\n\nif ($response->contactResponse !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.addressBook.contacts.byExtId.update({\n    extId: "my-id-2",\n    contact: {\n      name: "Jan Nowak",\n      name2: "Firma Testowa Sp. z o.o.",\n      address: "ul. Aleje Jerozolimskie",\n      homeNumber: "31",\n      flatNumber: "2",\n      postCode: "00-999",\n      city: "Warszawa",\n      phoneNumber: "+48999999999",\n      extId: "my-contact-1",\n      groupIds: [\n        13,\n        534,\n      ],\n    },\n  });\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -367,11 +415,11 @@ class ByExtID(BaseSDK):
         country: OptionalNullable[str] = "PL",
         phone_number: OptionalNullable[str] = UNSET,
         ext_id: OptionalNullable[str] = UNSET,
-        group_ids: OptionalNullable[List[int]] = UNSET,
+        group_ids: OptionalNullable[Iterable[int]] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
         accept_header_override: Optional[UpdateAcceptEnum] = None,
+        timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.UpdateContactByExternalIDResponse:
         r"""Update a contact by EXT_ID
@@ -419,7 +467,7 @@ class ByExtID(BaseSDK):
                 country=country,
                 phone_number=phone_number,
                 ext_id=ext_id,
-                group_ids=group_ids,
+                group_ids=utils.unmarshal(group_ids, OptionalNullable[List[int]]),
             ),
         )
 
@@ -441,6 +489,7 @@ class ByExtID(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request.contact, False, False, "json", models.Contact
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -465,9 +514,24 @@ class ByExtID(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Address Book", "redocly.contactsExtId"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\nuse Postivo\\Models\\Components;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n$contact = new Components\\Contact(\n    name: 'Jan Nowak',\n    name2: 'Firma Testowa Sp. z o.o.',\n    address: 'ul. Aleje Jerozolimskie',\n    homeNumber: '31',\n    flatNumber: '2',\n    postCode: '00-999',\n    city: 'Warszawa',\n    phoneNumber: '+48999999999',\n    extId: 'my-contact-1',\n    groupIds: [\n        13,\n        534,\n    ],\n);\n\n$response = $sdk->addressBook->contacts->byExtId->update(\n    extId: 'my-id-2',\n    contact: $contact\n\n);\n\nif ($response->contactResponse !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.addressBook.contacts.byExtId.update({\n    extId: "my-id-2",\n    contact: {\n      name: "Jan Nowak",\n      name2: "Firma Testowa Sp. z o.o.",\n      address: "ul. Aleje Jerozolimskie",\n      homeNumber: "31",\n      flatNumber: "2",\n      postCode: "00-999",\n      city: "Warszawa",\n      phoneNumber: "+48999999999",\n      extId: "my-contact-1",\n      groupIds: [\n        13,\n        534,\n      ],\n    },\n  });\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -501,7 +565,7 @@ class ByExtID(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.DeleteContactByExternalIDResponse]:
+    ) -> models.DeleteContactByExternalIDResponse:
         r"""Delete a contact by EXT_ID
 
         Remove a contact from your account by its external (custom) ID - the value defined when the contact was created.
@@ -539,6 +603,7 @@ class ByExtID(BaseSDK):
             accept_header_value="application/problem+json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -563,16 +628,31 @@ class ByExtID(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Address Book", "redocly.contactsExtId"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n\n\n$response = $sdk->addressBook->contacts->byExtId->delete(\n    extId: 'my-id-2'\n);\n\nif ($response->errorResponse !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.addressBook.contacts.byExtId.delete({\n    extId: "my-id-2",\n  });\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
         response_data: Any = None
         if utils.match_response(http_res, "204", "*"):
             return models.DeleteContactByExternalIDResponse(
-                result="", headers=utils.get_response_headers(http_res.headers)
+                result=None, headers=utils.get_response_headers(http_res.headers)
             )
         if utils.match_response(
             http_res, ["400", "401", "403", "404", "4XX"], "application/problem+json"
@@ -598,7 +678,7 @@ class ByExtID(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.DeleteContactByExternalIDResponse]:
+    ) -> models.DeleteContactByExternalIDResponse:
         r"""Delete a contact by EXT_ID
 
         Remove a contact from your account by its external (custom) ID - the value defined when the contact was created.
@@ -636,6 +716,7 @@ class ByExtID(BaseSDK):
             accept_header_value="application/problem+json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -660,16 +741,31 @@ class ByExtID(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Address Book", "redocly.contactsExtId"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n\n\n$response = $sdk->addressBook->contacts->byExtId->delete(\n    extId: 'my-id-2'\n);\n\nif ($response->errorResponse !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.addressBook.contacts.byExtId.delete({\n    extId: "my-id-2",\n  });\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
         response_data: Any = None
         if utils.match_response(http_res, "204", "*"):
             return models.DeleteContactByExternalIDResponse(
-                result="", headers=utils.get_response_headers(http_res.headers)
+                result=None, headers=utils.get_response_headers(http_res.headers)
             )
         if utils.match_response(
             http_res, ["400", "401", "403", "404", "4XX"], "application/problem+json"
@@ -696,7 +792,7 @@ class ByExtID(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.RemoveContactByExtIDToGroupResponse]:
+    ) -> models.RemoveContactByExtIDToGroupResponse:
         r"""Remove a contact from a group by EXT_ID
 
         Remove a contact from a group in your Address Book using the contact’s external (custom) ID. This operation does not delete the contact; it only detaches the contact from the group. Provide the contact’s `ext_id` and the group’s `group_id` parameters to perform the detachment.
@@ -736,6 +832,7 @@ class ByExtID(BaseSDK):
             accept_header_value="application/problem+json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -760,16 +857,31 @@ class ByExtID(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Address Book", "redocly.contactsExtId"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n\n\n$response = $sdk->addressBook->contacts->byExtId->removeFromGroup(\n    extId: 'my-id-1',\n    groupId: 656\n\n);\n\nif ($response->errorResponse !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.addressBook.contacts.byExtId.removeFromGroup({\n    extId: "my-id-1",\n    groupId: 656,\n  });\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
         response_data: Any = None
         if utils.match_response(http_res, "204", "*"):
             return models.RemoveContactByExtIDToGroupResponse(
-                result="", headers=utils.get_response_headers(http_res.headers)
+                result=None, headers=utils.get_response_headers(http_res.headers)
             )
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
@@ -799,7 +911,7 @@ class ByExtID(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.RemoveContactByExtIDToGroupResponse]:
+    ) -> models.RemoveContactByExtIDToGroupResponse:
         r"""Remove a contact from a group by EXT_ID
 
         Remove a contact from a group in your Address Book using the contact’s external (custom) ID. This operation does not delete the contact; it only detaches the contact from the group. Provide the contact’s `ext_id` and the group’s `group_id` parameters to perform the detachment.
@@ -839,6 +951,7 @@ class ByExtID(BaseSDK):
             accept_header_value="application/problem+json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -863,16 +976,31 @@ class ByExtID(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Address Book", "redocly.contactsExtId"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n\n\n$response = $sdk->addressBook->contacts->byExtId->removeFromGroup(\n    extId: 'my-id-1',\n    groupId: 656\n\n);\n\nif ($response->errorResponse !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.addressBook.contacts.byExtId.removeFromGroup({\n    extId: "my-id-1",\n    groupId: 656,\n  });\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
         response_data: Any = None
         if utils.match_response(http_res, "204", "*"):
             return models.RemoveContactByExtIDToGroupResponse(
-                result="", headers=utils.get_response_headers(http_res.headers)
+                result=None, headers=utils.get_response_headers(http_res.headers)
             )
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
@@ -902,7 +1030,7 @@ class ByExtID(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.AddContactByExtIDToGroupResponse]:
+    ) -> models.AddContactByExtIDToGroupResponse:
         r"""Add a contact to a group by EXT_ID
 
         Assign a contact to a group using the contact’s external (custom) ID (assigned when creating the contact). If a contact and a group exist in your account, you can add the contact to that group.
@@ -944,6 +1072,7 @@ class ByExtID(BaseSDK):
             accept_header_value="application/problem+json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -968,16 +1097,31 @@ class ByExtID(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Address Book", "redocly.contactsExtId"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n\n\n$response = $sdk->addressBook->contacts->byExtId->addToGroup(\n    extId: 'my-id-1',\n    groupId: 656\n\n);\n\nif ($response->errorResponse !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.addressBook.contacts.byExtId.addToGroup({\n    extId: "my-id-1",\n    groupId: 656,\n  });\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
         response_data: Any = None
         if utils.match_response(http_res, "204", "*"):
             return models.AddContactByExtIDToGroupResponse(
-                result="", headers=utils.get_response_headers(http_res.headers)
+                result=None, headers=utils.get_response_headers(http_res.headers)
             )
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
@@ -1007,7 +1151,7 @@ class ByExtID(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.AddContactByExtIDToGroupResponse]:
+    ) -> models.AddContactByExtIDToGroupResponse:
         r"""Add a contact to a group by EXT_ID
 
         Assign a contact to a group using the contact’s external (custom) ID (assigned when creating the contact). If a contact and a group exist in your account, you can add the contact to that group.
@@ -1049,6 +1193,7 @@ class ByExtID(BaseSDK):
             accept_header_value="application/problem+json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1073,16 +1218,31 @@ class ByExtID(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Address Book", "redocly.contactsExtId"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n\n\n$response = $sdk->addressBook->contacts->byExtId->addToGroup(\n    extId: 'my-id-1',\n    groupId: 656\n\n);\n\nif ($response->errorResponse !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.addressBook.contacts.byExtId.addToGroup({\n    extId: "my-id-1",\n    groupId: 656,\n  });\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
         response_data: Any = None
         if utils.match_response(http_res, "204", "*"):
             return models.AddContactByExtIDToGroupResponse(
-                result="", headers=utils.get_response_headers(http_res.headers)
+                result=None, headers=utils.get_response_headers(http_res.headers)
             )
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)

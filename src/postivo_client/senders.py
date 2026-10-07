@@ -26,8 +26,8 @@ class Senders(BaseSDK):
         *,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
         accept_header_override: Optional[ListAcceptEnum] = None,
+        timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.ListSendersResponse:
         r"""List senders
@@ -64,6 +64,7 @@ class Senders(BaseSDK):
             else "application/json;q=1, application/problem+json;q=0",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -88,9 +89,24 @@ class Senders(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Senders"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n\n\n$response = $sdk->senders->list(\n\n);\n\nif ($response->senderDetails !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.senders.list();\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -115,8 +131,8 @@ class Senders(BaseSDK):
         *,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
         accept_header_override: Optional[ListAcceptEnum] = None,
+        timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.ListSendersResponse:
         r"""List senders
@@ -153,6 +169,7 @@ class Senders(BaseSDK):
             else "application/json;q=1, application/problem+json;q=0",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -177,9 +194,24 @@ class Senders(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Senders"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n\n\n$response = $sdk->senders->list(\n\n);\n\nif ($response->senderDetails !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.senders.list();\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -212,8 +244,8 @@ class Senders(BaseSDK):
         country: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
         accept_header_override: Optional[AddAcceptEnum] = None,
+        timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.AddSenderResponse:
         r"""Add a new sender
@@ -273,6 +305,7 @@ class Senders(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.Sender
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -297,9 +330,24 @@ class Senders(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Senders"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\nuse Postivo\\Models\\Components;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n$request = new Components\\Sender(\n    name: 'Jan Nowak',\n    name2: 'Firma Testowa Sp. z o.o.',\n    address: 'ul. Aleje Jerozolimskie',\n    homeNumber: '31',\n    flatNumber: '2',\n    postCode: '00-999',\n    city: 'Warszawa',\n    country: 'PL',\n);\n\n$response = $sdk->senders->add(\n    request: $request\n);\n\nif ($response->senderDetails !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.senders.add({\n    name: "Jan Nowak",\n    name2: "Firma Testowa Sp. z o.o.",\n    address: "ul. Aleje Jerozolimskie",\n    homeNumber: "31",\n    flatNumber: "2",\n    postCode: "00-999",\n    city: "Warszawa",\n    country: "PL",\n  });\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -338,8 +386,8 @@ class Senders(BaseSDK):
         country: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
         accept_header_override: Optional[AddAcceptEnum] = None,
+        timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.AddSenderResponse:
         r"""Add a new sender
@@ -399,6 +447,7 @@ class Senders(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.Sender
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -423,9 +472,24 @@ class Senders(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Senders"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\nuse Postivo\\Models\\Components;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n$request = new Components\\Sender(\n    name: 'Jan Nowak',\n    name2: 'Firma Testowa Sp. z o.o.',\n    address: 'ul. Aleje Jerozolimskie',\n    homeNumber: '31',\n    flatNumber: '2',\n    postCode: '00-999',\n    city: 'Warszawa',\n    country: 'PL',\n);\n\n$response = $sdk->senders->add(\n    request: $request\n);\n\nif ($response->senderDetails !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.senders.add({\n    name: "Jan Nowak",\n    name2: "Firma Testowa Sp. z o.o.",\n    address: "ul. Aleje Jerozolimskie",\n    homeNumber: "31",\n    flatNumber: "2",\n    postCode: "00-999",\n    city: "Warszawa",\n    country: "PL",\n  });\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -459,7 +523,7 @@ class Senders(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.DeleteSenderResponse]:
+    ) -> models.DeleteSenderResponse:
         r"""Delete a sender
 
         Remove a sender from your account by `id`. Pass the sender’s `id` parameter to remove it. The sender is deleted immediately.
@@ -497,6 +561,7 @@ class Senders(BaseSDK):
             accept_header_value="application/problem+json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -521,16 +586,31 @@ class Senders(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Senders"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n\n\n$response = $sdk->senders->delete(\n    id: 14\n);\n\nif ($response->errorResponse !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.senders.delete({\n    id: 14,\n  });\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
         response_data: Any = None
         if utils.match_response(http_res, "204", "*"):
             return models.DeleteSenderResponse(
-                result="", headers=utils.get_response_headers(http_res.headers)
+                result=None, headers=utils.get_response_headers(http_res.headers)
             )
         if utils.match_response(
             http_res, ["400", "401", "403", "404", "4XX"], "application/problem+json"
@@ -556,7 +636,7 @@ class Senders(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.DeleteSenderResponse]:
+    ) -> models.DeleteSenderResponse:
         r"""Delete a sender
 
         Remove a sender from your account by `id`. Pass the sender’s `id` parameter to remove it. The sender is deleted immediately.
@@ -594,6 +674,7 @@ class Senders(BaseSDK):
             accept_header_value="application/problem+json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -618,16 +699,31 @@ class Senders(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Senders"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n\n\n$response = $sdk->senders->delete(\n    id: 14\n);\n\nif ($response->errorResponse !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.senders.delete({\n    id: 14,\n  });\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
         response_data: Any = None
         if utils.match_response(http_res, "204", "*"):
             return models.DeleteSenderResponse(
-                result="", headers=utils.get_response_headers(http_res.headers)
+                result=None, headers=utils.get_response_headers(http_res.headers)
             )
         if utils.match_response(
             http_res, ["400", "401", "403", "404", "4XX"], "application/problem+json"
@@ -654,7 +750,7 @@ class Senders(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.VerifySenderResponse]:
+    ) -> models.VerifySenderResponse:
         r"""Verify sender
 
         Verify a sender to activate it. After adding a new sender, a letter containing a verification code is mailed to the sender’s address. Provide this code to complete verification.
@@ -703,6 +799,7 @@ class Senders(BaseSDK):
                 "json",
                 models.VerifySenderRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -727,16 +824,31 @@ class Senders(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Senders"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\nuse Postivo\\Models\\Operations;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n$requestBody = new Operations\\VerifySenderRequestBody(\n    verificationCode: 'A345FP73',\n);\n\n$response = $sdk->senders->verify(\n    id: 443,\n    requestBody: $requestBody\n\n);\n\nif ($response->errorResponse !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.senders.verify({\n    id: 443,\n    requestBody: {\n      verificationCode: "A345FP73",\n    },\n  });\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
         response_data: Any = None
         if utils.match_response(http_res, "204", "*"):
             return models.VerifySenderResponse(
-                result="", headers=utils.get_response_headers(http_res.headers)
+                result=None, headers=utils.get_response_headers(http_res.headers)
             )
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
@@ -766,7 +878,7 @@ class Senders(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.VerifySenderResponse]:
+    ) -> models.VerifySenderResponse:
         r"""Verify sender
 
         Verify a sender to activate it. After adding a new sender, a letter containing a verification code is mailed to the sender’s address. Provide this code to complete verification.
@@ -815,6 +927,7 @@ class Senders(BaseSDK):
                 "json",
                 models.VerifySenderRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -839,16 +952,31 @@ class Senders(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Senders"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\nuse Postivo\\Models\\Operations;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n$requestBody = new Operations\\VerifySenderRequestBody(\n    verificationCode: 'A345FP73',\n);\n\n$response = $sdk->senders->verify(\n    id: 443,\n    requestBody: $requestBody\n\n);\n\nif ($response->errorResponse !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.senders.verify({\n    id: 443,\n    requestBody: {\n      verificationCode: "A345FP73",\n    },\n  });\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
         response_data: Any = None
         if utils.match_response(http_res, "204", "*"):
             return models.VerifySenderResponse(
-                result="", headers=utils.get_response_headers(http_res.headers)
+                result=None, headers=utils.get_response_headers(http_res.headers)
             )
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)

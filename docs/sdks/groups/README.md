@@ -1,5 +1,4 @@
-# Groups
-(*address_book.groups*)
+# AddressBook.Groups
 
 ## Overview
 
@@ -191,8 +190,6 @@ with Client(
 ) as client:
 
     res = client.address_book.groups.delete(id=876, contacts="detach")
-
-    assert res is not None
 
     # Handle response
     print(res)

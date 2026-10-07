@@ -32,6 +32,22 @@ class MetadataResponseService(BaseModel):
     service_return_fee: Optional[float] = None
     r"""Return fee charged when the shipment is returned."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["service_id", "service_name", "service_return_fee"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class MetadataResponseCarrierTypedDict(TypedDict):
     carrier_id: NotRequired[int]
@@ -52,6 +68,22 @@ class MetadataResponseCarrier(BaseModel):
     services: Optional[List[MetadataResponseService]] = None
     r"""Services (dispatch types) available for this carrier."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["carrier_id", "carrier_name", "services"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class PaperTypedDict(TypedDict):
     paper_id: NotRequired[int]
@@ -66,6 +98,22 @@ class Paper(BaseModel):
 
     paper_name: Optional[str] = None
     r"""Paper type name."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["paper_id", "paper_name"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class EnvelopeTypedDict(TypedDict):
@@ -87,6 +135,22 @@ class Envelope(BaseModel):
     max_sheets: Optional[int] = None
     r"""Maximum number of sheets supported by this envelope type."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["envelope_id", "envelope_name", "max_sheets"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class EnvelopeTemplateTypedDict(TypedDict):
     envelope_group_name: NotRequired[str]
@@ -107,6 +171,24 @@ class EnvelopeTemplate(BaseModel):
     envelope: Optional[List[Envelope]] = None
     r"""Envelope templates in this group."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            ["envelope_group_name", "envelope_group_description", "envelope"]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class StatusCodeTypedDict(TypedDict):
     code: NotRequired[str]
@@ -126,6 +208,22 @@ class StatusCode(BaseModel):
 
     description: Optional[str] = None
     r"""Status description."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["code", "name", "description"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class MetadataResponseTypedDict(TypedDict):
@@ -158,30 +256,29 @@ class MetadataResponse(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["carriers", "papers", "envelope_templates", "status_codes"]
-        nullable_fields = ["carriers", "papers", "envelope_templates", "status_codes"]
-        null_default_fields = []
-
+        optional_fields = set(
+            ["carriers", "papers", "envelope_templates", "status_codes"]
+        )
+        nullable_fields = set(
+            ["carriers", "papers", "envelope_templates", "status_codes"]
+        )
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
+            val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m

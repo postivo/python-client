@@ -1,5 +1,4 @@
 # Shipments
-(*shipments*)
 
 ## Overview
 
@@ -103,9 +102,109 @@ Send a shipment to one or multiple recipients in a single request. Provide a `Sh
 
 The system accepts up to **50** recipients per call. For larger volumes, split the operation into multiple requests.
 
-### Example Usage
+### Example Usage: advanced_config
 
-<!-- UsageSnippet language="python" operationID="shipmentDispatch" method="post" path="/shipment" -->
+<!-- UsageSnippet language="python" operationID="shipmentDispatch" method="post" path="/shipment" example="advanced_config" -->
+```python
+from datetime import date
+from postivo_client import Client
+
+
+with Client(
+    bearer="<YOUR API ACCESS TOKEN>",
+) as client:
+
+    res = client.shipments.dispatch(recipients={
+        "name": "Jan Nowak",
+        "name2": "Firma testowa Sp. z o.o.",
+        "address": "ul. Testowa",
+        "home_number": "23",
+        "flat_number": "2",
+        "post_code": "00-999",
+        "city": "Warszawa",
+        "country": "PL",
+        "phone_number": "+48666666666",
+        "postscript": "Komunikat",
+        "custom_id": "1234567890",
+    }, documents={
+        "file_stream": "<document content encoded to base64>",
+        "file_name": "document.pdf",
+    }, options={
+        "predefined_config_id": 2670,
+        "inline_config": {
+            "carrier_id": 4,
+            "service_id": 16,
+            "paper_id": 1,
+            "color_print": True,
+            "duplex_print": False,
+            "envelope_id": 454,
+            "envelope_color_print": True,
+        },
+        "sender_id": 1,
+        "dispatch_date": date.fromisoformat("2025-10-21"),
+        "callback": {
+            "url": "https://example.com/test",
+            "user_token": "75gh28hugjy8gfv6...",
+        },
+        "misc_info": {
+            "mpk": "dział sprzedaży",
+            "order_name": "Wysyłka zaproszeń do Klientów",
+        },
+        "rotate_documents": True,
+    })
+
+    # Handle response
+    print(res)
+
+```
+### Example Usage: multi
+
+<!-- UsageSnippet language="python" operationID="shipmentDispatch" method="post" path="/shipment" example="multi" -->
+```python
+from postivo_client import Client
+
+
+with Client(
+    bearer="<YOUR API ACCESS TOKEN>",
+) as client:
+
+    res = client.shipments.dispatch(recipients=[
+        {
+            "name": "Jan Nowak",
+            "name2": "Firma testowa Sp. z o.o.",
+            "address": "ul. Testowa",
+            "home_number": "23",
+            "flat_number": "2",
+            "post_code": "00-999",
+            "city": "Warszawa",
+            "country": "PL",
+            "phone_number": "+48666666666",
+            "postscript": "Komunikat",
+            "custom_id": "1234567890",
+        },
+        {
+            "name": "Andrzej Kowalski",
+            "address": "ul. Przykładowa 45/321",
+            "post_code": "34-001",
+            "city": "Kraków",
+            "country": "PL",
+            "phone_number": "+48999888777",
+            "custom_id": "my-id-1113",
+        },
+    ], documents={
+        "file_stream": "<document content encoded to base64>",
+        "file_name": "document.pdf",
+    }, options={
+        "predefined_config_id": 2670,
+    })
+
+    # Handle response
+    print(res)
+
+```
+### Example Usage: single
+
+<!-- UsageSnippet language="python" operationID="shipmentDispatch" method="post" path="/shipment" example="single" -->
 ```python
 from postivo_client import Client
 
@@ -211,9 +310,98 @@ Check the price of a shipment for one or multiple recipients. Provide a `Shipmen
 
 The system accepts up to **50** recipients per call. For larger volumes, split the operation into multiple requests.
 
-### Example Usage
+### Example Usage: advanced_config
 
-<!-- UsageSnippet language="python" operationID="shipmentPrice" method="post" path="/shipment/price" -->
+<!-- UsageSnippet language="python" operationID="shipmentPrice" method="post" path="/shipment/price" example="advanced_config" -->
+```python
+from postivo_client import Client
+
+
+with Client(
+    bearer="<YOUR API ACCESS TOKEN>",
+) as client:
+
+    res = client.shipments.price(recipients={
+        "name": "Jan Nowak",
+        "name2": "Firma testowa Sp. z o.o.",
+        "address": "ul. Testowa",
+        "home_number": "23",
+        "flat_number": "2",
+        "post_code": "00-999",
+        "city": "Warszawa",
+        "country": "PL",
+        "phone_number": "+48666666666",
+        "postscript": "Komunikat",
+        "custom_id": "1234567890",
+    }, documents={
+        "file_stream": "<document content encoded to base64>",
+        "file_name": "document.pdf",
+    }, options={
+        "predefined_config_id": 2670,
+        "inline_config": {
+            "carrier_id": 4,
+            "service_id": 16,
+            "paper_id": 1,
+            "color_print": True,
+            "duplex_print": False,
+            "envelope_id": 454,
+            "envelope_color_print": True,
+        },
+        "sender_id": 1,
+    })
+
+    # Handle response
+    print(res)
+
+```
+### Example Usage: multi
+
+<!-- UsageSnippet language="python" operationID="shipmentPrice" method="post" path="/shipment/price" example="multi" -->
+```python
+from postivo_client import Client
+
+
+with Client(
+    bearer="<YOUR API ACCESS TOKEN>",
+) as client:
+
+    res = client.shipments.price(recipients=[
+        {
+            "name": "Jan Nowak",
+            "name2": "Firma testowa Sp. z o.o.",
+            "address": "ul. Testowa",
+            "home_number": "23",
+            "flat_number": "2",
+            "post_code": "00-999",
+            "city": "Warszawa",
+            "country": "PL",
+            "phone_number": "+48666666666",
+            "postscript": "Komunikat",
+            "custom_id": "1234567890",
+        },
+        {
+            "name": "Andrzej Kowalski",
+            "address": "ul. Przykładowa 45/321",
+            "post_code": "34-001",
+            "city": "Kraków",
+            "country": "PL",
+            "phone_number": "+48999888777",
+            "custom_id": "my-id-1113",
+        },
+    ], documents={
+        "file_stream": "<document content encoded to base64>",
+        "file_name": "document.pdf",
+    }, options={
+        "predefined_config_id": 2670,
+    })
+
+    # Handle response
+    print(res)
+
+```
+### Example Usage: single
+
+<!-- UsageSnippet language="python" operationID="shipmentPrice" method="post" path="/shipment/price" example="single" -->
 ```python
 from postivo_client import Client
 

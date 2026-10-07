@@ -1,5 +1,4 @@
 # Senders
-(*senders*)
 
 ## Overview
 
@@ -113,8 +112,6 @@ with Client(
 
     res = client.senders.delete(id=14)
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -154,8 +151,6 @@ with Client(
 ) as client:
 
     res = client.senders.verify(id=443, verification_code="A345FP73")
-
-    assert res is not None
 
     # Handle response
     print(res)

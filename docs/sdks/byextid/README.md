@@ -1,5 +1,4 @@
-# ByExtID
-(*address_book.contacts.by_ext_id*)
+# AddressBook.Contacts.ByExtId
 
 ## Overview
 
@@ -122,8 +121,6 @@ with Client(
 
     res = client.address_book.contacts.by_ext_id.delete(ext_id="my-id-2")
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -163,8 +160,6 @@ with Client(
 ) as client:
 
     res = client.address_book.contacts.by_ext_id.remove_from_group(ext_id="my-id-1", group_id=656)
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -209,8 +204,6 @@ with Client(
 ) as client:
 
     res = client.address_book.contacts.by_ext_id.add_to_group(ext_id="my-id-1", group_id=656)
-
-    assert res is not None
 
     # Handle response
     print(res)

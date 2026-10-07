@@ -22,8 +22,8 @@ class Common(BaseSDK):
         *,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
         accept_header_override: Optional[PingAcceptEnum] = None,
+        timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.PingResponseResponse:
         r"""Check API availability and version
@@ -59,6 +59,7 @@ class Common(BaseSDK):
             if accept_header_override is not None
             else "application/json;q=1, application/problem+json;q=0",
             http_headers=http_headers,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -81,9 +82,24 @@ class Common(BaseSDK):
                 operation_id="ping",
                 oauth2_scopes=None,
                 security_source=None,
+                tags=["Common"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\n\n$sdk = Postivo\\Client::builder()->build();\n\n\n\n$response = $sdk->common->ping(\n\n);\n\nif ($response->pingResponse !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client();\n\nasync function run() {\n  const result = await client.common.ping();\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "4XX", "503", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -106,8 +122,8 @@ class Common(BaseSDK):
         *,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
         accept_header_override: Optional[PingAcceptEnum] = None,
+        timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.PingResponseResponse:
         r"""Check API availability and version
@@ -143,6 +159,7 @@ class Common(BaseSDK):
             if accept_header_override is not None
             else "application/json;q=1, application/problem+json;q=0",
             http_headers=http_headers,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -165,9 +182,24 @@ class Common(BaseSDK):
                 operation_id="ping",
                 oauth2_scopes=None,
                 security_source=None,
+                tags=["Common"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\n\n$sdk = Postivo\\Client::builder()->build();\n\n\n\n$response = $sdk->common->ping(\n\n);\n\nif ($response->pingResponse !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client();\n\nasync function run() {\n  const result = await client.common.ping();\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "4XX", "503", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 

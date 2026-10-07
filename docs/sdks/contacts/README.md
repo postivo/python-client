@@ -1,5 +1,4 @@
-# Contacts
-(*address_book.contacts*)
+# AddressBook.Contacts
 
 ## Overview
 
@@ -218,8 +217,6 @@ with Client(
 
     res = client.address_book.contacts.delete(id=14)
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -261,8 +258,6 @@ with Client(
 ) as client:
 
     res = client.address_book.contacts.remove_from_group(id=35, group_id=656)
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -307,8 +302,6 @@ with Client(
 ) as client:
 
     res = client.address_book.contacts.add_to_group(id=35, group_id=656)
-
-    assert res is not None
 
     # Handle response
     print(res)

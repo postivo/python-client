@@ -3,10 +3,10 @@
 import importlib.metadata
 
 __title__: str = "postivo-client"
-__version__: str = "0.1.0"
-__openapi_doc_version__: str = "1.0.2"
-__gen_version__: str = "2.728.0"
-__user_agent__: str = "speakeasy-sdk/python 0.1.0 2.728.0 1.0.2 postivo-client"
+__version__: str = "0.2.2"
+__openapi_doc_version__: str = "1.0.4"
+__gen_version__: str = "2.943.0"
+__user_agent__: str = "speakeasy-sdk/python 0.2.2 2.943.0 1.0.4 postivo-client"
 
 try:
     if __package__ is not None:

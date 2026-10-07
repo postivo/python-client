@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 from .errorresponse import ErrorResponse, ErrorResponseTypedDict
-from postivo_client.types import BaseModel
+from postivo_client.types import BaseModel, UNSET_SENTINEL
 from postivo_client.utils import FieldMetadata, PathParamMetadata, QueryParamMetadata
+from pydantic import model_serializer
 from typing import Dict, List, Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -36,13 +37,45 @@ class DeleteGroupRequest(BaseModel):
     ] = "detach"
     r"""How to handle contacts that belong to the group."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["contacts"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class DeleteGroupResponseTypedDict(TypedDict):
     headers: Dict[str, List[str]]
-    result: ErrorResponseTypedDict
+    result: NotRequired[ErrorResponseTypedDict]
 
 
 class DeleteGroupResponse(BaseModel):
     headers: Dict[str, List[str]]
 
-    result: ErrorResponse
+    result: Optional[ErrorResponse] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["Result"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

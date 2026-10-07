@@ -7,7 +7,7 @@ from postivo_client._hooks import HookContext
 from postivo_client.types import OptionalNullable, UNSET
 from postivo_client.utils import get_security_from_env
 from postivo_client.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, List, Mapping, Optional, Union
+from typing import Any, Iterable, List, Mapping, Optional, Union
 
 
 class StatusAcceptEnum(str, Enum):
@@ -39,11 +39,11 @@ class Shipments(BaseSDK):
     def status(
         self,
         *,
-        ids: List[str],
+        ids: Iterable[str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
         accept_header_override: Optional[StatusAcceptEnum] = None,
+        timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.GetStatusResponse:
         r"""Retrieve shipment details with status events
@@ -68,7 +68,7 @@ class Shipments(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetStatusRequest(
-            ids=ids,
+            ids=utils.unmarshal(ids, List[str]),
         )
 
         req = self._build_request(
@@ -86,6 +86,7 @@ class Shipments(BaseSDK):
             else "application/json;q=1, application/problem+json;q=0",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -110,9 +111,24 @@ class Shipments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Shipments"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n\n\n$response = $sdk->shipments->status(\n    ids: [\n        'A0043456',\n    ]\n);\n\nif ($response->statusDetails !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.shipments.status({\n    ids: [\n      "A0043456",\n    ],\n  });\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -141,11 +157,11 @@ class Shipments(BaseSDK):
     async def status_async(
         self,
         *,
-        ids: List[str],
+        ids: Iterable[str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
         accept_header_override: Optional[StatusAcceptEnum] = None,
+        timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.GetStatusResponse:
         r"""Retrieve shipment details with status events
@@ -170,7 +186,7 @@ class Shipments(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetStatusRequest(
-            ids=ids,
+            ids=utils.unmarshal(ids, List[str]),
         )
 
         req = self._build_request_async(
@@ -188,6 +204,7 @@ class Shipments(BaseSDK):
             else "application/json;q=1, application/problem+json;q=0",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -212,9 +229,24 @@ class Shipments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Shipments"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n\n\n$response = $sdk->shipments->status(\n    ids: [\n        'A0043456',\n    ]\n);\n\nif ($response->statusDetails !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.shipments.status({\n    ids: [\n      "A0043456",\n    ],\n  });\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -243,11 +275,11 @@ class Shipments(BaseSDK):
     def cancel(
         self,
         *,
-        ids: List[str],
+        ids: Iterable[str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
         accept_header_override: Optional[CancelAcceptEnum] = None,
+        timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.CancelShipmentResponse:
         r"""Cancel shipments
@@ -274,7 +306,7 @@ class Shipments(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.CancelShipmentRequest(
-            ids=ids,
+            ids=utils.unmarshal(ids, List[str]),
         )
 
         req = self._build_request(
@@ -292,6 +324,7 @@ class Shipments(BaseSDK):
             else "application/json;q=1, application/problem+json;q=0",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -316,9 +349,24 @@ class Shipments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Shipments"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n\n\n$response = $sdk->shipments->cancel(\n    ids: [\n        'A0043456',\n    ]\n);\n\nif ($response->shipmentCancellations !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.shipments.cancel({\n    ids: [\n      "A0043456",\n    ],\n  });\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -349,11 +397,11 @@ class Shipments(BaseSDK):
     async def cancel_async(
         self,
         *,
-        ids: List[str],
+        ids: Iterable[str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
         accept_header_override: Optional[CancelAcceptEnum] = None,
+        timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.CancelShipmentResponse:
         r"""Cancel shipments
@@ -380,7 +428,7 @@ class Shipments(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.CancelShipmentRequest(
-            ids=ids,
+            ids=utils.unmarshal(ids, List[str]),
         )
 
         req = self._build_request_async(
@@ -398,6 +446,7 @@ class Shipments(BaseSDK):
             else "application/json;q=1, application/problem+json;q=0",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -422,9 +471,24 @@ class Shipments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Shipments"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n\n\n$response = $sdk->shipments->cancel(\n    ids: [\n        'A0043456',\n    ]\n);\n\nif ($response->shipmentCancellations !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.shipments.cancel({\n    ids: [\n      "A0043456",\n    ],\n  });\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -464,8 +528,8 @@ class Shipments(BaseSDK):
         ] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
         accept_header_override: Optional[DispatchAcceptEnum] = None,
+        timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.ShipmentDispatchResponse:
         r"""Dispatch a new shipment
@@ -517,6 +581,7 @@ class Shipments(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.Shipment
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -541,9 +606,24 @@ class Shipments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Shipments"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Brick\\DateTime\\LocalDate;\nuse Postivo;\nuse Postivo\\Models\\Components;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n$request = new Components\\Shipment(\n    recipients: new Components\\RecipientInline(\n        name: 'Jan Nowak',\n        name2: 'Firma testowa Sp. z o.o.',\n        address: 'ul. Testowa',\n        homeNumber: '23',\n        flatNumber: '2',\n        postCode: '00-999',\n        city: 'Warszawa',\n        phoneNumber: '+48666666666',\n        postscript: 'Komunikat',\n        customId: '1234567890',\n    ),\n    documents: [\n        new Components\\DocumentPdf(\n            fileStream: '<document_1 content encoded to base64>',\n            fileName: 'document1.pdf',\n        ),\n        new Components\\DocumentPdf(\n            fileStream: '<document_2 content encoded to base64>',\n            fileName: 'document2.pdf',\n        ),\n    ],\n    options: new Components\\ShipmentOptions(\n        predefinedConfigId: 2670,\n    ),\n);\n\n$response = $sdk->shipments->dispatch(\n    request: $request\n);\n\nif ($response->shipmentDetails !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.shipments.dispatch({\n    recipients: {\n      name: "Jan Nowak",\n      name2: "Firma testowa Sp. z o.o.",\n      address: "ul. Testowa",\n      homeNumber: "23",\n      flatNumber: "2",\n      postCode: "00-999",\n      city: "Warszawa",\n      country: "PL",\n      phoneNumber: "+48666666666",\n      postscript: "Komunikat",\n      customId: "1234567890",\n    },\n    documents: [\n      {\n        fileStream: "<document_1 content encoded to base64>",\n        fileName: "document1.pdf",\n      },\n      {\n        fileStream: "<document_2 content encoded to base64>",\n        fileName: "document2.pdf",\n      },\n    ],\n    options: {\n      predefinedConfigId: 2670,\n    },\n  });\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -581,8 +661,8 @@ class Shipments(BaseSDK):
         ] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
         accept_header_override: Optional[DispatchAcceptEnum] = None,
+        timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.ShipmentDispatchResponse:
         r"""Dispatch a new shipment
@@ -634,6 +714,7 @@ class Shipments(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.Shipment
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -658,9 +739,24 @@ class Shipments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Shipments"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Brick\\DateTime\\LocalDate;\nuse Postivo;\nuse Postivo\\Models\\Components;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n$request = new Components\\Shipment(\n    recipients: new Components\\RecipientInline(\n        name: 'Jan Nowak',\n        name2: 'Firma testowa Sp. z o.o.',\n        address: 'ul. Testowa',\n        homeNumber: '23',\n        flatNumber: '2',\n        postCode: '00-999',\n        city: 'Warszawa',\n        phoneNumber: '+48666666666',\n        postscript: 'Komunikat',\n        customId: '1234567890',\n    ),\n    documents: [\n        new Components\\DocumentPdf(\n            fileStream: '<document_1 content encoded to base64>',\n            fileName: 'document1.pdf',\n        ),\n        new Components\\DocumentPdf(\n            fileStream: '<document_2 content encoded to base64>',\n            fileName: 'document2.pdf',\n        ),\n    ],\n    options: new Components\\ShipmentOptions(\n        predefinedConfigId: 2670,\n    ),\n);\n\n$response = $sdk->shipments->dispatch(\n    request: $request\n);\n\nif ($response->shipmentDetails !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.shipments.dispatch({\n    recipients: {\n      name: "Jan Nowak",\n      name2: "Firma testowa Sp. z o.o.",\n      address: "ul. Testowa",\n      homeNumber: "23",\n      flatNumber: "2",\n      postCode: "00-999",\n      city: "Warszawa",\n      country: "PL",\n      phoneNumber: "+48666666666",\n      postscript: "Komunikat",\n      customId: "1234567890",\n    },\n    documents: [\n      {\n        fileStream: "<document_1 content encoded to base64>",\n        fileName: "document1.pdf",\n      },\n      {\n        fileStream: "<document_2 content encoded to base64>",\n        fileName: "document2.pdf",\n      },\n    ],\n    options: {\n      predefinedConfigId: 2670,\n    },\n  });\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -693,8 +789,8 @@ class Shipments(BaseSDK):
         type_: models.DocumentType,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
         accept_header_override: Optional[DocumentsAcceptEnum] = None,
+        timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.GetDocumentsResponse:
         r"""Retrieve documents related to a shipment
@@ -739,6 +835,7 @@ class Shipments(BaseSDK):
             else "application/json;q=1, application/problem+json;q=0",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -763,9 +860,24 @@ class Shipments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Shipments"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\nuse Postivo\\Models\\Operations;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n\n\n$response = $sdk->shipments->documents(\n    id: 'A0043456',\n    type: Operations\\DocumentType::DispatchCert\n\n);\n\nif ($response->documentResponse !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.shipments.documents({\n    id: "A0043456",\n    type: "dispatch_cert",\n  });\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -798,8 +910,8 @@ class Shipments(BaseSDK):
         type_: models.DocumentType,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
         accept_header_override: Optional[DocumentsAcceptEnum] = None,
+        timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.GetDocumentsResponse:
         r"""Retrieve documents related to a shipment
@@ -844,6 +956,7 @@ class Shipments(BaseSDK):
             else "application/json;q=1, application/problem+json;q=0",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -868,9 +981,24 @@ class Shipments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Shipments"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Postivo;\nuse Postivo\\Models\\Operations;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n\n\n$response = $sdk->shipments->documents(\n    id: 'A0043456',\n    type: Operations\\DocumentType::DispatchCert\n\n);\n\nif ($response->documentResponse !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.shipments.documents({\n    id: "A0043456",\n    type: "dispatch_cert",\n  });\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "404", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -908,8 +1036,8 @@ class Shipments(BaseSDK):
         ] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
         accept_header_override: Optional[PriceAcceptEnum] = None,
+        timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.ShipmentPriceResponse:
         r"""Check the shipment price
@@ -961,6 +1089,7 @@ class Shipments(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.Shipment
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -985,9 +1114,24 @@ class Shipments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Shipments"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Brick\\DateTime\\LocalDate;\nuse Postivo;\nuse Postivo\\Models\\Components;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n$request = new Components\\Shipment(\n    recipients: new Components\\RecipientInline(\n        name: 'Jan Nowak',\n        name2: 'Firma testowa Sp. z o.o.',\n        address: 'ul. Testowa',\n        homeNumber: '23',\n        flatNumber: '2',\n        postCode: '00-999',\n        city: 'Warszawa',\n        phoneNumber: '+48666666666',\n        postscript: 'Komunikat',\n        customId: '1234567890',\n    ),\n    documents: [\n        new Components\\DocumentPdf(\n            fileStream: '<document_1 content encoded to base64>',\n            fileName: 'document1.pdf',\n        ),\n        new Components\\DocumentPdf(\n            fileStream: '<document_2 content encoded to base64>',\n            fileName: 'document2.pdf',\n        ),\n    ],\n    options: new Components\\ShipmentOptions(\n        predefinedConfigId: 2670,\n    ),\n);\n\n$response = $sdk->shipments->price(\n    request: $request\n);\n\nif ($response->shipmentPrices !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.shipments.price({\n    recipients: {\n      name: "Jan Nowak",\n      name2: "Firma testowa Sp. z o.o.",\n      address: "ul. Testowa",\n      homeNumber: "23",\n      flatNumber: "2",\n      postCode: "00-999",\n      city: "Warszawa",\n      country: "PL",\n      phoneNumber: "+48666666666",\n      postscript: "Komunikat",\n      customId: "1234567890",\n    },\n    documents: [\n      {\n        fileStream: "<document_1 content encoded to base64>",\n        fileName: "document1.pdf",\n      },\n      {\n        fileStream: "<document_2 content encoded to base64>",\n        fileName: "document2.pdf",\n      },\n    ],\n    options: {\n      predefinedConfigId: 2670,\n    },\n  });\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1025,8 +1169,8 @@ class Shipments(BaseSDK):
         ] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
         accept_header_override: Optional[PriceAcceptEnum] = None,
+        timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.ShipmentPriceResponse:
         r"""Check the shipment price
@@ -1078,6 +1222,7 @@ class Shipments(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.Shipment
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1102,9 +1247,24 @@ class Shipments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Shipments"],
+                extensions={
+                    "x-codeSamples": [
+                        {
+                            "label": "Php (SDK)",
+                            "lang": "php",
+                            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse Brick\\DateTime\\LocalDate;\nuse Postivo;\nuse Postivo\\Models\\Components;\n\n$sdk = Postivo\\Client::builder()\n    ->setSecurity(\n        '<YOUR API ACCESS TOKEN>'\n    )\n    ->build();\n\n$request = new Components\\Shipment(\n    recipients: new Components\\RecipientInline(\n        name: 'Jan Nowak',\n        name2: 'Firma testowa Sp. z o.o.',\n        address: 'ul. Testowa',\n        homeNumber: '23',\n        flatNumber: '2',\n        postCode: '00-999',\n        city: 'Warszawa',\n        phoneNumber: '+48666666666',\n        postscript: 'Komunikat',\n        customId: '1234567890',\n    ),\n    documents: [\n        new Components\\DocumentPdf(\n            fileStream: '<document_1 content encoded to base64>',\n            fileName: 'document1.pdf',\n        ),\n        new Components\\DocumentPdf(\n            fileStream: '<document_2 content encoded to base64>',\n            fileName: 'document2.pdf',\n        ),\n    ],\n    options: new Components\\ShipmentOptions(\n        predefinedConfigId: 2670,\n    ),\n);\n\n$response = $sdk->shipments->price(\n    request: $request\n);\n\nif ($response->shipmentPrices !== null) {\n    // handle response\n}",
+                        },
+                        {
+                            "label": "Typescript (SDK)",
+                            "lang": "typescript",
+                            "source": 'import { Client } from "@postivo/postivo-client";\n\nconst client = new Client({\n  bearer: "<YOUR API ACCESS TOKEN>",\n});\n\nasync function run() {\n  const result = await client.shipments.price({\n    recipients: {\n      name: "Jan Nowak",\n      name2: "Firma testowa Sp. z o.o.",\n      address: "ul. Testowa",\n      homeNumber: "23",\n      flatNumber: "2",\n      postCode: "00-999",\n      city: "Warszawa",\n      country: "PL",\n      phoneNumber: "+48666666666",\n      postscript: "Komunikat",\n      customId: "1234567890",\n    },\n    documents: [\n      {\n        fileStream: "<document_1 content encoded to base64>",\n        fileName: "document1.pdf",\n      },\n      {\n        fileStream: "<document_2 content encoded to base64>",\n        fileName: "document2.pdf",\n      },\n    ],\n    options: {\n      predefinedConfigId: 2670,\n    },\n  });\n\n  console.log(result);\n}\n\nrun();',
+                        },
+                    ]
+                },
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 

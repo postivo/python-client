@@ -2,10 +2,15 @@
 
 Account type.
 
+## Example Usage
+
+```python
+from postivo_client.models import AccountType
+value: AccountType = "PRE-PAID"
+```
+
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `PRE_PAID`  | PRE-PAID    |
-| `POST_PAID` | POST-PAID   |
+- `"PRE-PAID"`
+- `"POST-PAID"`
